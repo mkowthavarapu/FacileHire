@@ -1,0 +1,31 @@
+{% load static %}
+<!doctype html>
+<html>
+<head>
+	<link rel="stylesheet" href="{% static 'hire/styles.css' %}", type="text/css">
+	<meta charset="UTF-8">
+	<title>Facile Hire Home</title>
+	<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+
+<body class="body">
+	<div class="header">
+		<div class="grid-container2">
+			<a href="http://localhost:8000/"><img src="{% static 'hire/images/FH-logo.png' %}" alt="Facile Hire" height="100px"></a>
+			
+		</div>
+	</div>
+	<div class="container" align="center">
+	  <h1>Recruiter Login</h1>
+	  <form class="rounded-corners form-flex" action="/recruiter_dashboard/" method="post">
+		{% csrf_token %}
+		<input class="input" type="email" id="email" name="email" value="" placeholder="Email Address" required><br>
+		<input class="input" type="password" id="pwd" name="pwd" value="" placeholder="Password" required><br>
+		<input class="btn btn-secondary" type="submit" value="Login">
+		<div class="alert">
+			{{message}}
+		</div>
+	</form>
+	</div>
+</body>
+</html>
