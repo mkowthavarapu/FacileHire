@@ -4,7 +4,7 @@
 <!doctype html>
 <html>
 <head>
-	<link rel="stylesheet" href="{% static 'hire/styles.css' %}", type="text/css">
+	<link rel="stylesheet" href="{% static 'hire/styles.css' %}" , type="text/css">
 	<meta charset="UTF-8">
 	<title>Candidate Login</title>
 	<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
@@ -13,15 +13,12 @@
 <body class="body">
 	<div class="header">
 		<div class="grid-container2">
-			<a href="http://localhost:8000/" ><img src="{% static 'hire/images/FH-logo.png' %}" alt="Facile Hire" height="100px"></a>
+			<a href="http://localhost:8000/"><img src="{% static 'hire/images/FH-logo.png' %}" alt="Facile Hire"
+					height="100px"></a>
 		</div>
 	</div>
-	
-	<!-- <div class="container icon">
-		<a href="" class="a" style="font-size: 24px"><i style="font-size: 24px;" class="fas" >&#xf060;</i>  Back to home</a>
-	</div> -->
 	<div class="container" align="center">
-	  <h1>Candidate Login</h1>
+		<h1>Candidate Login</h1>
 		<form class="rounded-corners form-flex" action="/candidate_dashboard/" method="post">
 			{% csrf_token %}
 			<input class="input" type="email" id="email" name="email" value="" placeholder="Email Address" required><br>
@@ -33,4 +30,5 @@
 		</form>
 	</div>
 </body>
+
 </html>
