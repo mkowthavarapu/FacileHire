@@ -18,7 +18,13 @@ from django.urls import path, include
 from hire import views
 
 urlpatterns = [
-    path('login/', views.login, name="login"),
+    path('', views.index, name="index"),
+    path('candidate_login/', views.login, name="candidate login"),
+    path('employee_login/', views.login, name="employee login"),
+    path('recruiter_login/', views.login, name="recruiter login"),
     path('post_job/', views.job_posting, name="post_job"),
     path('admin/', admin.site.urls),
+    path('candidate_dashboard/', views.candidate_dashboard, name="candidate dashboard"),
+    path('employee_dashboard/', views.employee_dashboard, name="employee dashboard"),
+    path('recruiter_dashboard/', views.recruiter_dashboard, name="recruiter dashboard"),
 ]

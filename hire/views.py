@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 import mysql.connector
+from django.template import loader
+from django.views.decorators.csrf import csrf_protect
+
 
 def get_mysql_connection():
     connection = mysql.connector.connect(
@@ -34,43 +37,66 @@ def execute_query(query):
     cursor.execute(query)
     connection.close()    
 
-def candidate_login(user_name, password):
-    query = f"select count(*) from candidate_login where user_name = {user_name} and password = {password}"
-    status = execute_query_fetchone(query)
-    if status:
-        return HttpResponse("Candidate Login Successful")
-    else:
-        return HttpResponse("Invalid login details")
+@csrf_protect
+def candidate_dashboard(request):
+    status = False
+    if request.method == 'POST':
+        email = request.POST.get("email")
+        password = request.POST.get("pwd")
+        # query = f"select count(*) from candidate_login where user_name = {user_name} and password = {password}"
+        # status = execute_query_fetchone(query)
+        if status:
+            context = {"message": ""}
+            return HttpResponse("Candiate login successful")
+        else:
+            context = {"message": "Invalid email or password"}
+            return render(request, 'hire/cand-login.html', context)
 
-def employee_login(user_name, password):
-    query = f"select count(*) from employee_login where user_name = {user_name} and password = {password}"
-    status = execute_query_fetchone(query)
-    if status:
-        return HttpResponse("Employee Login Successful")
-    else:
-        return HttpResponse("Invalid login details")
+def employee_dashboard(request):
+    status = True
+    if request.method == 'POST':
+        email = request.POST.get("email")
+        password = request.POST.get("pwd")
+        # query = f"select count(*) from employee_login where user_name = {user_name} and password = {password}"
+        # status = execute_query_fetchone(query)
+        if status:
+            return HttpResponse("Employee login successful")
+        else:
+            context = {"message": "Invalid email or passowrd"}
+            return HttpResponse("Invalid email or passowrd")            
+    
 
-def recruiter_login(user_name, password):
-    query = f"select count(*) from recruiter_login where user_name = {user_name} and password = {password}"
-    status = execute_query_fetchone(query)
-    if status:
-        return HttpResponse("Recruiter Login Successful")
-    else:
-        return HttpResponse("Invalid login details")
+def recruiter_dashboard(request):
+    status = True
+    if request.method == 'POST':
+        email = request.POST.get("email")
+        password = request.POST.get("pwd")
+        # query = f"select count(*) from recruiter_login where user_name = {user_name} and password = {password}"
+        # status = execute_query_fetchone(query)
+        if status:
+            return HttpResponse("Recruiter login successful")
+        else:
+            context = {"message": "Invalid email or passowrd"}
+            return HttpResponse("Invalid email or passowrd")      
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
+    context = {}
+    return render(request, 'hire/index.html', context)
 
 def login(request):
-    key = ""
-    if key == "candidate":
-        candidate_login(user_name, password)
-    elif key == "employee":
-        employee_login(user_name, password)
-    elif key == "recruiter":
-        recruiter_login(user_name, password)
+    context = {}
+    key = request.path
+    if "candidate" in key:
+        template_render = render(request, 'hire/cand-login.html', context)
+        # candidate_login(user_name, password)
+    elif "employee" in key:
+        template_render = render(request, 'hire/emp-login.html', context)
+        # employee_login(user_name, password)
+    elif "recruiter" in key:
+        template_render = render(request, 'hire/rec-login.html', context)
+        # recruiter_login(user_name, password)
 
-    return HttpResponse("Hello, at login page")
+    return template_render
 
 def job_posting(request):
     query = "insert into job_posting (name, requirements, description, created_date, modified_date) values %s" % ("adasd")
