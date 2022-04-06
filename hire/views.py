@@ -14,7 +14,7 @@ def get_mysql_connection():
             )
     cursor = connection.cursor()
 
-    return connetion, cursor
+    return connection, cursor
 
 def execute_query_fetchone(query):
     connection, cursor = get_mysql_connection()
@@ -39,13 +39,12 @@ def execute_query(query):
 
 @csrf_protect
 def candidate_dashboard(request):
-    status = False
     if request.method == 'POST':
         email = request.POST.get("email")
         password = request.POST.get("pwd")
-        # query = f"select count(*) from candidate_login where user_name = {user_name} and password = {password}"
-        # status = execute_query_fetchone(query)
-        if status:
+        query = f"select count(*) from candidate_login where user_name = '{email}' and password = '{password}'"
+        status = execute_query_fetchone(query)
+        if status[0]:
             context = {"message": ""}
             return HttpResponse("Candiate login successful")
         else:
@@ -53,13 +52,12 @@ def candidate_dashboard(request):
             return render(request, 'hire/cand-login.html', context)
 
 def employee_dashboard(request):
-    status = True
     if request.method == 'POST':
         email = request.POST.get("email")
         password = request.POST.get("pwd")
-        # query = f"select count(*) from employee_login where user_name = {user_name} and password = {password}"
-        # status = execute_query_fetchone(query)
-        if status:
+        query = f"select count(*) from employee_login where user_name = '{email}' and password = '{password}'"
+        status = execute_query_fetchone(query)
+        if status[0]:
             return HttpResponse("Employee login successful")
         else:
             context = {"message": "Invalid email or passowrd"}
@@ -67,13 +65,12 @@ def employee_dashboard(request):
     
 
 def recruiter_dashboard(request):
-    status = True
     if request.method == 'POST':
         email = request.POST.get("email")
         password = request.POST.get("pwd")
-        # query = f"select count(*) from recruiter_login where user_name = {user_name} and password = {password}"
-        # status = execute_query_fetchone(query)
-        if status:
+        query = f"select count(*) from recruiter_login where user_name = '{email}' and password = '{password}'"
+        status = execute_query_fetchone(query)
+        if status[0]:
             return HttpResponse("Recruiter login successful")
         else:
             context = {"message": "Invalid email or passowrd"}
