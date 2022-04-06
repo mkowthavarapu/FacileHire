@@ -3,6 +3,7 @@ from django.http import HttpResponse
 import mysql.connector
 from django.template import loader
 from django.views.decorators.csrf import csrf_protect
+from django.shortcuts import redirect
 
 
 def get_mysql_connection():
@@ -38,60 +39,103 @@ def execute_query(query):
     connection.close()    
 
 @csrf_protect
-def candidate_dashboard(request):
+def candidate_login(request):
     if request.method == 'POST':
         email = request.POST.get("email")
         password = request.POST.get("pwd")
         query = f"select count(*) from candidate_login where user_name = '{email}' and password = '{password}'"
         status = execute_query_fetchone(query)
         if status[0]:
-            context = {"message": ""}
-            return HttpResponse("Candiate login successful")
-        else:
-            context = {"message": "Invalid email or password"}
-            return render(request, 'hire/cand-login.html', context)
+            context = {"message": "Login Successful", "status": True,
+                    "email": email, "password": password
+                }
+            request.path = "/candidate_dashboard/"
+            template = "hire/candidate_dashboard.html"
+        else:   
+            context = {"message": "Invalid email or password", "status": False}
+            template = "hire/cand-login.html"
+        return context, template
 
-def employee_dashboard(request):
+
+def candidate_dashboard(request):
+    return render(request, "hire/candidate_dashboard.html", {})
+
+@csrf_protect
+def employee_login(request):
     if request.method == 'POST':
         email = request.POST.get("email")
         password = request.POST.get("pwd")
         query = f"select count(*) from employee_login where user_name = '{email}' and password = '{password}'"
         status = execute_query_fetchone(query)
         if status[0]:
-            return HttpResponse("Employee login successful")
-        else:
-            context = {"message": "Invalid email or passowrd"}
-            return HttpResponse("Invalid email or passowrd")            
-    
+            context = {"message": "Login Successful", "status": True,
+                    "email": email, "password": password
+                }
+            request.path = "/employee_dashboard/"
+            template = "hire/employee_dashboard.html"
+        else:   
+            context = {"message": "Invalid email or password", "status": False}
+            template = "hire/emp-login.html"
+        return context, template
+
+def employee_dashboard(request):
+    return render(request, "hire/employee_dashboard.html", {})
+
+@csrf_protect
+def recruiter_login(request):
+    email = request.POST.get("email")
+    password = request.POST.get("pwd")
+    query = f"select count(*) from recruiter_login where user_name = '{email}' and password = '{password}'"
+    status = execute_query_fetchone(query)
+    if status[0]:
+        context = {"message": "Login Successful", "status": True,
+                "email": email, "password": password
+            }
+        request.path = "/recruiter_dashboard/"
+        template = "hire/recruiter-dashboard.html"
+    else:   
+        context = {"message": "Invalid email or password", "status": False}
+        template = "hire/rec-login.html"
+    return context, template
 
 def recruiter_dashboard(request):
-    if request.method == 'POST':
-        email = request.POST.get("email")
-        password = request.POST.get("pwd")
-        query = f"select count(*) from recruiter_login where user_name = '{email}' and password = '{password}'"
-        status = execute_query_fetchone(query)
-        if status[0]:
-            return HttpResponse("Recruiter login successful")
-        else:
-            context = {"message": "Invalid email or passowrd"}
-            return HttpResponse("Invalid email or passowrd")      
+    return render(request, "hire/recruiter-dashboard.html", {})
+
+def recruiter_jobs(request):
+    return render(request, "hire/recruiter-jobs.html", {})
+
+def recruiter_candidates(request):
+    return render(request, "hire/recruiter-candidates.html", {})
+
+def recruiter_resumes(request):
+    return render(request, "hire/recruiter-resumes.html", {})
+
+def recruiter_profile(request):
+    return render(request, "hire/recruiter-profile.html", {})
 
 def index(request):
     context = {}
     return render(request, 'hire/index.html', context)
 
-def login(request):
+def login(request, login_type):
     context = {}
-    key = request.path
-    if "candidate" in key:
-        template_render = render(request, 'hire/cand-login.html', context)
-        # candidate_login(user_name, password)
-    elif "employee" in key:
-        template_render = render(request, 'hire/emp-login.html', context)
-        # employee_login(user_name, password)
-    elif "recruiter" in key:
-        template_render = render(request, 'hire/rec-login.html', context)
-        # recruiter_login(user_name, password)
+    if request.method == 'GET':
+        if "candidate" in login_type:
+            template_render = render(request, 'hire/cand-login.html', context)
+        elif "employee" in login_type:
+            template_render = render(request, 'hire/emp-login.html', context)
+        elif "recruiter" in login_type:
+            template_render = render(request, 'hire/rec-login.html', context)
+    else:
+        if "candidate" in login_type:
+            context, template = candidate_login(request)
+            template_render = render(request, template, context)
+        elif "employee" in login_type:
+            context, template = employee_login(request)
+            template_render = render(request, template, context)
+        elif "recruiter" in login_type:
+            context, template = recruiter_login(request)
+            template_render = render(request, template, context)
 
     return template_render
 
