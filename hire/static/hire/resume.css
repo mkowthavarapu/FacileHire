@@ -17,8 +17,12 @@
 .msg a:hover { background: #266400; }
 
 /* //-- yui-grids style overrides -- */
-body { font-family: Georgia; color: #444; }   
-#inner { padding: 10px 80px; margin: 80px auto; background: #eceaf8; border: solid #51a8f4; border-width: 8px 0 2px 0; }
+#doc2 { 
+	font-family: Georgia !important;
+	color: #444; }   
+#inner { 
+	padding: 10px 80px; margin: 80px auto; background: #e3f2fd; border: solid #51a8f4; border-width: 8px 0 2px 0; box-shadow: 10px 5px 5px #aeacac;
+}
 .yui-gf { margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc; }
 
 /* //-- header, body, footer -- */
@@ -81,4 +85,8 @@ a#pdf:hover { background: #222; }
 .header {
 	width: 10%;
 	align-content: center;
+}
+
+.nav-item {
+	border-bottom-width: 0px;
 }

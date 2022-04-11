@@ -12,14 +12,12 @@
 <body class="body">
 	<div class="header">
 		<div class="grid-container2">
-			<a href="http://localhost:8000/"><img href="" src="{% static 'hire/images/FH-logo.png' %}" alt="Facile Hire"
-					height="100px"></a>
-
+			<a href="http://localhost:8000/"><img href="" src="{% static 'hire/images/FH-logo.png' %}" alt="Facile Hire" height="50px" style="margin-left: 15px;"></a>
 		</div>
 	</div>
 	<div align="center">
 		<h1>Employee Login</h1>
-		<form class="rounded-corners form-flex" action="/employee_dashboard/" method="post">
+		<form class="rounded-corners form-flex" action="/login/employee/" method="post">
 			{% csrf_token %}
 			<input class="input" type="email" id="email" name="email" value="" placeholder="Email Address" required><br>
 			<input class="input" type="password" id="pwd" name="pwd" value="" placeholder="Password" required><br>

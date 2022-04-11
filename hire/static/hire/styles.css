@@ -6,9 +6,9 @@
 	background-image: url("images/home-background.png");
 }
 
-.body1 {
+/* .body1 {
 	background: #DFDFDF;
-}
+} */
 
 .header {
 	width: 100%;
@@ -48,7 +48,7 @@ h2 {
 }
 
 p {
-	color: white;
+	/* color: white; */
 	font-family: "Gill Sans", "Gill Sans MT", "Myriad Pro", "DejaVu Sans Condensed", Helvetica, Arial, "sans-serif";
 }
 
@@ -203,4 +203,36 @@ li a:hover {
 
 .alert {
 	color: red;
+}
+
+.candidate-image {
+	border-radius: 50px;
+}
+
+#example_wrapper {
+	margin-top: 50px !important;
+}
+
+.sorting_1 {
+	background-color: transparent !important;
+}
+
+.about-section{
+	margin-top: 50px;
+}
+
+.index-container{
+	margin-top: 100px;
+}
+
+.upload-files{
+	margin-top: 100px;
+}
+
+.upload-resume-text{
+	font-size: 20px!important;
+}
+
+.employee_candidate {
+	margin-top: 50px;
 }

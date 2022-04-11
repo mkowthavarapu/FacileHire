@@ -4,7 +4,9 @@ import mysql.connector
 from django.template import loader
 from django.views.decorators.csrf import csrf_protect
 from django.shortcuts import redirect
+from localStoragePy import localStoragePy
 
+localStorage = localStoragePy('facile_hire', 'json')
 
 def get_mysql_connection():
     connection = mysql.connector.connect(
@@ -60,6 +62,9 @@ def candidate_login(request):
 def candidate_dashboard(request):
     return render(request, "hire/candidate_dashboard.html", {})
 
+def candidate_profile(request):
+    return render(request, "hire/candidate_profile.html", {})
+
 @csrf_protect
 def employee_login(request):
     if request.method == 'POST':
@@ -68,6 +73,8 @@ def employee_login(request):
         query = f"select count(*) from employee_login where user_name = '{email}' and password = '{password}'"
         status = execute_query_fetchone(query)
         if status[0]:
+            localStorage.setItem("email", email)
+            localStorage.setItem("password", password)
             context = {"message": "Login Successful", "status": True,
                     "email": email, "password": password
                 }
@@ -81,6 +88,8 @@ def employee_login(request):
 def employee_dashboard(request):
     return render(request, "hire/employee_dashboard.html", {})
 
+def employee_candidate(request, request_type, candidate_id):
+    return  render(request, "hire/employee_candidate.html", {})
 @csrf_protect
 def recruiter_login(request):
     email = request.POST.get("email")
@@ -145,3 +154,8 @@ def job_posting(request):
     # execute_query(query % values)
     return HttpResponse("Jobs has been inserted successfully")
 
+def project_ermodel(request):
+    return render(request, 'hire/project_er_model.html', {})
+
+def project_report(request):
+    return render(request, 'hire/project_report.html', {})

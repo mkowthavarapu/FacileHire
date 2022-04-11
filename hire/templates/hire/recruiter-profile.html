@@ -2,9 +2,23 @@
 <!doctype html>
 <html>
 <head>
-	<link rel="stylesheet" href="../styles.css">
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"> -->
+	<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+	rel="stylesheet"
+	/>
+	<!-- Google Fonts -->
+	<link
+	href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+	rel="stylesheet"
+	/>
+	<!-- MDB -->
+	<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.11.0/mdb.min.css"
+	rel="stylesheet"
+	/>
+	<link rel="stylesheet" href="{% static 'hire/styles.css' %}">
 	<meta charset="UTF-8">
 	<title>Resumes Page</title>
 	<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
@@ -14,25 +28,25 @@
 	<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
 		<!-- Navbar content -->
 		<a href="http://localhost:8000/"><img src="{% static 'hire/images/FH-logo.png' %}" alt="Facile Hire"
-				height="100px"></a>
+				height="50px" style="margin-left: 15px;"></a>
 		<ul class="nav nav-pills">
 			<li class="nav-item">
-				<a class="nav-link" href="/recruiter_dashboard">Dashboard</a>
+				<a class="nav-link" href="/recruiter_dashboard/" style="background-color: unset">Dashboard</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="/recruiter_jobs/">Jobs</a>
+				<a class="nav-link" href="/recruiter_jobs/" style="background-color: unset">Jobs</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="/recruiter_candidates/">Candidates</a>
+				<a class="nav-link" href="/recruiter_candidates/" style="background-color: unset">Candidates</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="/recruiter_resumes/">Resumes</a>
+				<a class="nav-link" href="/recruiter_resumes/" style="background-color: unset">Upload Resumes</a>
 			</li>
 			<li class="nav-item">
 				<a class="nav-link active" aria-current="page" href="/recruiter_profile/">Profile</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="/">
+				<a class="nav-link" href="http://localhost:8000/" style="background-color: unset">
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
 						class="bi bi-box-arrow-left" viewBox="0 0 16 16">
 						<path fill-rule="evenodd"
@@ -47,12 +61,13 @@
 	</nav>
 	<section class="section about-section gray-bg" id="about">
 		<div class="container">
+			<div class="shadow p-3 mb-5 bg-white rounded">
 			<div class="row align-items-center flex-row-reverse">
 				<div class="col-lg-6">
 					<div class="about-text go-to">
 						<h3 class="dark-color">About Me</h3>
 						<h6 class="theme-color lead">A Lead UX &amp; UI designer based in Canada</h6>
-						<p>I <mark>design and develop</mark> services for customers of all sizes, specializing in creating stylish, modern websites, web services and online stores. My passion is to design digital user experiences through the bold interface and meaningful interactions.</p>
+						<!-- <p>I <mark>design and develop</mark> services for customers of all sizes, specializing in creating stylish, modern websites, web services and online stores. My passion is to design digital user experiences through the bold interface and meaningful interactions.</p> -->
 						<div class="row about-list">
 							<div class="col-md-6">
 								<div class="media">
@@ -128,6 +143,7 @@
 				</div>
 			</div> -->
 		</div>
+	</div>
 	</section>
 </body>
 </html>	
