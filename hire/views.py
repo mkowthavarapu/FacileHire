@@ -88,8 +88,9 @@ def employee_login(request):
 def employee_dashboard(request):
     return render(request, "hire/employee_dashboard.html", {})
 
-def employee_candidate(request, request_type, candidate_id):
+def employee_candidate(request, candidate_id):
     return  render(request, "hire/employee_candidate.html", {})
+
 @csrf_protect
 def recruiter_login(request):
     email = request.POST.get("email")
@@ -108,7 +109,18 @@ def recruiter_login(request):
     return context, template
 
 def recruiter_dashboard(request):
-    return render(request, "hire/recruiter-dashboard.html", {})
+    xdata = ["Apple", "Apricot", "Avocado", "Banana", "Boysenberries", "Blueberries", "Dates", "Grapefruit", "Kiwi", "Lemon"]
+    ydata = [52, 48, 160, 94, 75, 71, 490, 82, 46, 17]
+
+    extra_serie = {"tooltip": {"y_start": "", "y_end": " cal"}}
+    chartdata = {'x': xdata, 'y1': ydata, 'extra1': extra_serie}
+    charttype = "pieChart"
+
+    data = {
+        'charttype': charttype,
+        'chartdata': chartdata,
+    }
+    return render(request, "hire/recruiter-dashboard.html", data)
 
 def recruiter_jobs(request):
     return render(request, "hire/recruiter-jobs.html", {})
@@ -121,6 +133,10 @@ def recruiter_resumes(request):
 
 def recruiter_profile(request):
     return render(request, "hire/recruiter-profile.html", {})
+    
+def recruiter_candidate_profile(request, candidate_id):
+    return  render(request, "hire/recruiter_candidate_profile.html", {})
+    
 
 def index(request):
     context = {}
@@ -159,3 +175,22 @@ def project_ermodel(request):
 
 def project_report(request):
     return render(request, 'hire/project_report.html', {})
+
+def post_job(request):
+    if request.method == "GET":
+        message = ""
+        context = {}
+    elif request.method == "POST":
+        query = "insert into job (name, location_id, requirements, roles, description, recruiter_id) values %s"
+        title = request.POST.get("title")
+        location = request.POST.get("location")
+        requirements = request.POST.get("requirements")
+        roles = request.POST.get("roles")
+        description = request.POST.get("description")
+        values = (title, 123, requirements, roles, description, 123123)
+        connection, cursor = get_mysql_connection()
+        cursor.execute(query % str(values))
+        connection.commit()
+        connection.close()
+        message = "Job Posted Successfully"
+    return render(request, "hire/post_job.html", {"message": message})

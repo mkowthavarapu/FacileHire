@@ -19,7 +19,7 @@
 </head>
 
 <body class="body1">
-	<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+	<nav class="navbar navbar-light" style="background-color: #96ceff;">
 		<!-- Navbar content -->
 		<a href="http://localhost:8000/"><img src="{% static 'hire/images/FH-logo.png' %}" alt="Facile Hire"
 				height="50px" style="margin-left: 15px;"></a>
@@ -44,9 +44,152 @@
 			</li>
 		</ul>
 	</nav>
+	<form>
 	<div class="container employee_candidate">
-        Candidate Status
-    </div>
+		<form method="POST">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<h2 style="color: black; text-align: center;" class="mb-4">Candidate Profile Status</h2>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3">
+						<div class="mb-3">
+							<label for="canidate-name" class="form-label">Name</label>
+							<input type="text" class="form-control" value="Manohar Kowhthavarapu" id="canidate-name"
+								disabled>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="mb-3">
+							<label for="canidate-email" class="form-label">Email</label>
+							<input type="text" class="form-control" value="Manohar@gmail.com" id="candidate-email" disabled>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="mb-3">
+							<label for="candidate-position" class="form-label">Position</label>
+							<input type="text" class="form-control" value="Junior" id="candidate-position" disabled>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="mb-3">
+							<label for="candidate-mobile" class="form-label">Mobile</label>
+							<input type="text" class="form-control" value="1234567890" id="candidate-mobile" disabled>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="mb-3">
+							<label for="candidate-skills" class="form-label">Skills</label>
+							<input type="text" class="form-control" value="python, reactjs, nodejs, angular"
+								id="candidate-skills" disabled>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="mt-5">
+							<a href="/candidate/1234/">Click here to view candidate profile</a>
+						</div>
+					</div>
+				</div>	
+				<hr />
+				<div class="row">
+					<div class="col-md-6">
+						<div class="sub_heading">Interview Schedule</div>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" type="checkbox" id="schedule_interview"
+								value="schedule_interview">
+							<label class="form-check-label" for="schedule_interview">Schedule Interview</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" type="checkbox" id="interview_scheduled"
+								value="interview_scheduled">
+							<label class="form-check-label" for="interview_scheduled">Interview Scheduled</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" type="checkbox" id="not_attended_interview"
+								value="not_attended_interview">
+							<label class="form-check-label" for="not_attended_interview">Not attended Interview</label>
+						</div>
+						<div class="form-date form-date-inline">
+							<label class="form-date-label" for="interview_date">Interview Date</label>
+							<input class="form-date-input" type="datetime-local" id="interview_date" value="interview_date">
+						</div>
+	
+						<div class="row">
+							<div class="col-md-12">
+								<div class="mb-3">
+									<label for="interview_schedule_remarks" class="form-label">Remarks</label>
+									<textarea class="form-control" id="interview_schedule_remarks" rows="3"></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="sub_heading">Interview Round</div>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" type="checkbox" id="written_test" value="written_test">
+							<label class="form-check-label" for="written_test">Written Test</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" type="checkbox" id="technical_evaluation"
+								value="technical_evaluation">
+							<label class="form-check-label" for="technical_evaluation">Technical Evaluation</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" type="checkbox" id="mangerial_round" value="mangerial_round">
+							<label class="form-check-label" for="mangerial_round">Mangerial Round</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" type="checkbox" id="hr_round" value="hr_round">
+							<label class="form-check-label" for="hr_round">HR Round</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" type="checkbox" id="final_round" value="final_round">
+							<label class="form-check-label" for="final_round">Final Round</label>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="mb-3">
+									<label for="interview_round_remarks" class="form-label">Remarks</label>
+									<textarea class="form-control" id="interview_round_remarks" rows="3"></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<hr />
+				<div class="row">
+					<div class="col-md-6">
+						<div class="sub_heading">Interview Status</div>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" type="radio" id="inlineCheckbox3" value="option1">
+							<label class="form-check-label" for="inlineCheckbox3">Selected</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" type="radio" id="inlineCheckbox4" value="option2">
+							<label class="form-check-label" for="inlineCheckbox4">Rejected</label>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="mb-3">
+									<label for="exampleFormControlTextarea1" class="form-label">Remarks</label>
+									<textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<hr />
+				<div class="row">
+					<div style="text-align: center;">
+						<button type="button" class="btn btn-primary">Submit</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</form>
 </body>
 
 </html>
