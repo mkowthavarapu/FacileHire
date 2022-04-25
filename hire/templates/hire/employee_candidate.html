@@ -31,16 +31,16 @@
 				<a class="nav-link" href="/recruiter_profile/" style="background-color: unset">Profile</a>
 			</li> -->
 			<li class="nav-item">
-				<a class="nav-link" href="http://localhost:8000/" style="background-color: unset">
-					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-						class="bi bi-box-arrow-left" viewBox="0 0 16 16">
-						<path fill-rule="evenodd"
-							d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z" />
-						<path fill-rule="evenodd"
-							d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z" />
-					</svg>
-					Logout
-				</a>
+                <a class="nav-link" href="http://localhost:8000/" style="background-color: unset">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-box-arrow-left" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z" />
+                        <path fill-rule="evenodd"
+                            d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z" />
+                    </svg>
+                    Logout
+                </a>
 			</li>
 		</ul>
 	</nav>
@@ -57,41 +57,40 @@
 					<div class="col-md-3">
 						<div class="mb-3">
 							<label for="canidate-name" class="form-label">Name</label>
-							<input type="text" class="form-control" value="Manohar Kowhthavarapu" id="canidate-name"
-								disabled>
+							<input type="text" class="form-control" value="{{name}}" id="canidate-name" disabled>
 						</div>
 					</div>
 					<div class="col-md-3">
 						<div class="mb-3">
 							<label for="canidate-email" class="form-label">Email</label>
-							<input type="text" class="form-control" value="Manohar@gmail.com" id="candidate-email" disabled>
+							<input type="text" class="form-control" value="{{email}}" id="candidate-email" disabled>
 						</div>
 					</div>
 					<div class="col-md-3">
 						<div class="mb-3">
 							<label for="candidate-position" class="form-label">Position</label>
-							<input type="text" class="form-control" value="Junior" id="candidate-position" disabled>
+							<input type="text" class="form-control" value="{{designation}}" id="candidate-position"
+								disabled>
 						</div>
 					</div>
 					<div class="col-md-3">
 						<div class="mb-3">
 							<label for="candidate-mobile" class="form-label">Mobile</label>
-							<input type="text" class="form-control" value="1234567890" id="candidate-mobile" disabled>
+							<input type="text" class="form-control" value="{{mobile}}" id="candidate-mobile" disabled>
 						</div>
 					</div>
-					<div class="col-md-3">
+					<div class="col-md-9">
 						<div class="mb-3">
 							<label for="candidate-skills" class="form-label">Skills</label>
-							<input type="text" class="form-control" value="python, reactjs, nodejs, angular"
-								id="candidate-skills" disabled>
+							<input type="text" class="form-control" value="{{skills}}" id="candidate-skills" disabled>
 						</div>
 					</div>
 					<div class="col-md-3">
 						<div class="mt-5">
-							<a href="/candidate/1234/">Click here to view candidate profile</a>
+							<a href="/candidate/{{candidate_id}}">Click here to view candidate profile</a>
 						</div>
 					</div>
-				</div>	
+				</div>
 				<hr />
 				<div class="row">
 					<div class="col-md-6">

@@ -131,8 +131,27 @@ def employee_dashboard(request):
     return render(request, "hire/employee_dashboard.html", context)
 
 def employee_candidate(request, candidate_id):
-    
-    return  render(request, "hire/employee_candidate.html", {})
+    if request.method == "POST":
+        import pdb; pdb.set_trace()
+        return
+
+    context = {}
+    is_login = check_login(request, "employee_id")
+    if not is_login:
+        context["message"] = "Please login"
+        return render(request, 'hire/index.html', context)
+
+    query = "select ifnull(first_name, ''), ifnull(middle_name, ''), ifnull(last_name, ''), skills, mobile, email from candidate where candidate_id = '%s'"
+    result = execute_query_fetchone(query % candidate_id)
+    context["name"] = " ".join([result[0], result[1], result[2]])
+    context["skills"] = result[3]
+    context["mobile"] = result[4]
+    context["email"] = result[5]
+    query = "select title from designation d, candidate_designation cd where cd.candidate_id = '%s' and cd.designation_id = d.designation_id"
+    result = execute_query_fetchone(query % candidate_id)
+    context["designation"] = result[0]
+    context["candidate_id"] = candidate_id
+    return  render(request, "hire/employee_candidate.html", context=context)
 
 def recruiter_login(request):
     email = request.POST.get("email")
@@ -361,3 +380,7 @@ def recruiter_detail_job(request, job_id):
     result = execute_query_fetchone(query)
     context["location"] = ", ".join([result[0], result[1]])
     return render(request, "hire/recruiter_detail_job.html", context=context)
+
+def candidate_profile_view(request, candidate_id):
+    context = {}
+    return render(request, "hire/candidate_profile_view.html", context=context)
