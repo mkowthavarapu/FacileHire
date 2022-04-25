@@ -132,6 +132,8 @@ def populate_candidate_designation():
         query = "insert into employee_designation (employee_id, designation_id) values ('%s', '%s')"
         mycursor.execute(query % (result[0], random.randint(1,30)))
 
+def populate_experience():
+    pass
 # populate_candidate_employee_recruitr() 
 # populate_colleges()
 # populate_companies_clients()
@@ -141,4 +143,5 @@ def populate_candidate_designation():
 # update_skills()
 # populate_designation()
 # populate_candidate_designation()
+populate_experience()
 mydb.commit()

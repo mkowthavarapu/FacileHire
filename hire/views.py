@@ -68,8 +68,9 @@ def candidate_login(request):
 
 
 def candidate_dashboard(request):
+    candidate_id = localStorage.getItem("candidate_id")
     context = {}
-    query = "select j.job_id, name, requirements, description, roles, location_id, recruiter_id from job j, candidate_job cj where j.job_id = cj.job_id and cj.candidate_id = 204;"
+    query = "select j.job_id, name, requirements, description, roles, location_id, recruiter_id from job j, candidate_job cj where j.job_id = cj.job_id and cj.candidate_id = %s" % candidate_id
     result = execute_query_fetchone(query)
     recruiter_id = result[6]
     location_id = result[5]
@@ -86,6 +87,7 @@ def candidate_dashboard(request):
     context["recruiter_name"] = " ".join([result[0], result[1], result[2]])
     context["recruiter_email"] = result[3]
     context["recruiter_mobile"] = result[4]
+    context["candidate_id"] = candidate_id
     return render(request, "hire/candidate_dashboard.html", context)
 
 def candidate_profile(request):
@@ -383,4 +385,42 @@ def recruiter_detail_job(request, job_id):
 
 def candidate_profile_view(request, candidate_id):
     context = {}
+    query = "SELECT c.candidate_id, ifnull(first_name, ''), ifnull(middle_name, ''), ifnull(last_name, ''), email, mobile, skills, e.degree, e.year_passed_out, e.cgpa, co.name, d.title, concat(l.state, ', ', l.country) as location, e.course from candidate c, candidate_education ce, education e, college co, candidate_designation cd, designation d, location l where c.candidate_id = ce.candidate_id and ce.education_id = e.education_id and e.college_id = co.college_id and cd.candidate_id = c.candidate_id and cd.designation_id = d.designation_id and e.location_id = l.location_id and c.candidate_id = %s" % candidate_id
+    results = execute_query_fetchall(query)
+    for result in results:
+        context["candidate_id"] = result[0]
+        context["name"] = " ".join([result[1], result[2], result[3]])
+        context["email"] = result[4]
+        context["mobile"] = result[5]
+        context["skills"] =  result[6]
+        context["designation"] =  result[11]
+        if "educations" not in context:
+            context["educations"] = []
+        context["educations"].append({
+            "degree": result[7], "year_passed_out": result[8],
+            "cgpa": result[9], "name": result[10], "location": result[12],
+            "course": result[13]
+            })
+
+    query = " select c.name, e.from_date, e.to_date, e.description, d.title, concat(l.state, ', ', l.country) as location from experience e, candidate_experience ce, company c, designation d, location l where ce.candidate_experience_id = e.experience_id and e.company_id = c.company_id and e.designation_id = d.designation_id and l.location_id = e.location_id and ce.candidate_id = %s" % candidate_id
+    results = execute_query_fetchall(query)
+    for result in results:
+        if "experiences" not in context:
+            context["experiences"] = []
+        context["experiences"].append(
+            {
+                "name": result[0],
+                "from_date": result[1],
+                "to_date": result[2],
+                "description": result[3],
+                "designation": result[4],
+                "location": result[5]
+            }
+        )
+    query = "select c.name from candidate_certifications cc, certifications c where c.certification_id = cc.certification_id and cc.candidate_id = %s" % candidate_id
+    results = execute_query_fetchall(query)
+    for result in results:
+        if "certifications" not in context:
+            context["certifications"] = []
+        context["certifications"].append(result[0])
     return render(request, "hire/candidate_profile_view.html", context=context)

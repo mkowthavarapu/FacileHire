@@ -33,7 +33,7 @@
                 <a class="nav-link active" aria-current="page" href="/candidate_dashboard/">Job Status</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/candidate_profile/" style="background-color: unset">Profile</a>
+                <a class="nav-link" href="/candidate/{{candidate_id}}" style="background-color: unset" target="_blank">Profile</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="http://localhost:8000/" style="background-color: unset">
@@ -52,7 +52,7 @@
     <div class="container mt-5">
         <div class="row">
             <label><b>Job Title:</b></label>
-            <span>{{name}}}</span>
+            <span>{{name}}</span>
         </div>
         <div class="row mt-3">
             <label><b>Job Description:</b></label>

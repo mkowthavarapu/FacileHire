@@ -22,7 +22,6 @@ urlpatterns = [
     path('login/<str:login_type>/', views.login, name="login"),
     path('admin/', admin.site.urls),
     path('candidate_dashboard/', views.candidate_dashboard, name="candidate dashboard"),
-    path('candidate_profile/', views.candidate_profile, name="candidate dashboard"),
     path('employee_dashboard/', views.employee_dashboard, name="employee dashboard"),
     path('recruiter_dashboard/', views.recruiter_dashboard, name="recruiter dashboard"),
     path('recruiter_jobs/', views.recruiter_jobs, name="recruiter jobs"),
