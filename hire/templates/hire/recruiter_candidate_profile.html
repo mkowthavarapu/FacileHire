@@ -36,7 +36,8 @@
         </a>
         </ul>
     </nav>
-    <form method="POST">
+    <form method="POST" action="/recruiter/candidate/{{candidate_id}}">
+        {% csrf_token %}
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -47,38 +48,37 @@
                 <div class="col-md-3">
                     <div class="mb-3">
                         <label for="canidate-name" class="form-label">Name</label>
-                        <input type="text" class="form-control" value="Manohar Kowhthavarapu" id="canidate-name"
-                            disabled>
+                        <input type="text" class="form-control" value="{{name}}" id="canidate-name" disabled>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="mb-3">
                         <label for="canidate-email" class="form-label">Email</label>
-                        <input type="text" class="form-control" value="Manohar@gmail.com" id="candidate-email" disabled>
+                        <input type="text" class="form-control" value="{{email}}" id="candidate-email" disabled>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="mb-3">
                         <label for="candidate-position" class="form-label">Position</label>
-                        <input type="text" class="form-control" value="Junior" id="candidate-position" disabled>
+                        <input type="text" class="form-control" value="{{desgination}}" id="candidate-position"
+                            disabled>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="mb-3">
                         <label for="candidate-mobile" class="form-label">Mobile</label>
-                        <input type="text" class="form-control" value="1234567890" id="candidate-mobile" disabled>
+                        <input type="text" class="form-control" value="{{mobile}}" id="candidate-mobile" disabled>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-9">
                     <div class="mb-3">
                         <label for="candidate-skills" class="form-label">Skills</label>
-                        <input type="text" class="form-control" value="python, reactjs, nodejs, angular"
-                            id="candidate-skills" disabled>
+                        <input type="text" class="form-control" value="{{skills}}" id="candidate-skills" disabled>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="mt-5">
-                        <a href="/candidate/1234/">Click here to view candidate profile</a>
+                        <a href="/candidate/{{candidate_id}}/">Click here to view candidate profile</a>
                     </div>
                 </div>
             </div>
@@ -87,21 +87,21 @@
                 <div class="col-md-6">
                     <div class="sub_heading">Document(s)</div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="passport" value="passport">
+                        <input class="form-check-input" type="checkbox" name="passport"id="passport" value=True>
                         <label class="form-check-label" for="passport">Passport</label>
                     </div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="checkbox" id="experience_letters"
-                            value="experience_letters">
+                            value=True name="experience_letter">
                         <label class="form-check-label" for="experience_letters">Experience Letter(s)</label>
                     </div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="checkbox" id="educational_documents"
-                            value="educational_documents">
+                            value=True name="educational_documents">
                         <label class="form-check-label" for="educational_documents">Educational Document(s)</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="payslips" value="payslips">
+                        <input class="form-check-input" type="checkbox" id="payslips" value="" name="payslips">
                         <label class="form-check-label" for="payslips">Payslip(s)</label>
                     </div>
                 </div>
@@ -134,30 +134,28 @@
                 <div class="col-md-6">
                     <div class="sub_heading">Interview Schedule</div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="schedule_interview"
-                            value="schedule_interview">
-                        <label class="form-check-label" for="schedule_interview">Schedule Interview</label>
+                        <input class="form-check-input" type="radio" id="schedule_interview" value="schedule_interview"
+                            name="schedule_interview">
+                        <label class="form-check-label" for="schedule-interview">Schedule Interview</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="interview_scheduled"
-                            value="interview_scheduled">
-                        <label class="form-check-label" for="interview_scheduled">Interview Scheduled</label>
+                        <input class="form-check-input" type="radio" id="interview-scheduled" value="interview_scheduled" name="interview_scheduled">
+                        <label class="form-check-label" for="interview-scheduled">Interview Scheduled</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="not_attended_interview"
-                            value="not_attended_interview">
-                        <label class="form-check-label" for="not_attended_interview">Not attended Interview</label>
+                        <input class="form-check-input" type="radio" id="not-attended-interview"
+                            value="not_attended_interview" name="not_attended_interview">
+                        <label class="form-check-label" for="not-attended-interview">Not attended Interview</label>
                     </div>
                     <div class="form-date form-date-inline">
                         <label class="form-date-label" for="interview_date">Interview Date</label>
-                        <input class="form-date-input" type="datetime-local" id="interview_date" value="interview_date">
+                        <input class="form-date-input" type="datetime-local" id="interview_date" value="" name="interview_date">
                     </div>
-
                     <div class="row">
                         <div class="col-md-12">
                             <div class="mb-3">
                                 <label for="interview_schedule_remarks" class="form-label">Remarks</label>
-                                <textarea class="form-control" id="interview_schedule_remarks" rows="3"></textarea>
+                                <textarea class="form-control" id="interview_schedule_remarks" rows="3" name="interview_schedule_remarks"></textarea>
                             </div>
                         </div>
                     </div>
@@ -165,31 +163,31 @@
                 <div class="col-md-6">
                     <div class="sub_heading">Interview Round</div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="written_test" value="written_test">
+                        <input class="form-check-input" type="checkbox" id="written_test" value="" name="written_test">
                         <label class="form-check-label" for="written_test">Written Test</label>
                     </div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="checkbox" id="technical_evaluation"
-                            value="technical_evaluation">
+                            value="" name="technical_evaluation">
                         <label class="form-check-label" for="technical_evaluation">Technical Evaluation</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="mangerial_round" value="mangerial_round">
+                        <input class="form-check-input" type="checkbox" id="mangerial_round" value="" name="mangerial_round">
                         <label class="form-check-label" for="mangerial_round">Mangerial Round</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="hr_round" value="hr_round">
+                        <input class="form-check-input" type="checkbox" id="hr_round" value="" name="hr_round">
                         <label class="form-check-label" for="hr_round">HR Round</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="final_round" value="final_round">
+                        <input class="form-check-input" type="checkbox" id="final_round" value="" name="final_round">
                         <label class="form-check-label" for="final_round">Final Round</label>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="mb-3">
                                 <label for="interview_round_remarks" class="form-label">Remarks</label>
-                                <textarea class="form-control" id="interview_round_remarks" rows="3"></textarea>
+                                <textarea class="form-control" id="interview_round_remarks" name="interview_round_remarks" rows="3"></textarea>
                             </div>
                         </div>
                     </div>
@@ -214,6 +212,14 @@
                             name="verification">
                         <label class="form-check-label" for="bg_completed">Completed</label>
                     </div>
+                    <div class="mt-2">
+                        <div class="sub_heading">Job ID</div>
+                        <input type="text" class="form-control" value="" name="job_id" id="job-id">
+                    </div>
+                    <div class="mt-2">
+                        <div class="sub_heading">Job Status</div>
+                        <input type="text" class="form-control" value="" name="job_status" id="job-status">
+                    </div>
                 </div>
                 <div class="col-md-6">
                     <div class="sub_heading">Interview Status</div>
@@ -236,52 +242,9 @@
                 </div>
             </div>
             <hr />
-            <!-- <div class="row">
-                <div class="col-md-12">
-                    <div class="sub_heading">Location</div>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="mb-3">
-                                <label for="exampleFormControlTextarea1" class="form-label">Street</label>
-                                <input type="text" placeholder="Enter Street" class="form-control"
-                                    id="exampleFormControlTextarea1">
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="mb-3">
-                                <label for="exampleFormControlTextarea1" class="form-label">City</label>
-                                <input type="text" placeholder="Enter City" class="form-control"
-                                    id="exampleFormControlTextarea1">
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="mb-3">
-                                <label for="exampleFormControlTextarea1" class="form-label">State</label>
-                                <input type="text" placeholder="Enter State" class="form-control"
-                                    id="exampleFormControlTextarea1">
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="mb-3">
-                                <label for="exampleFormControlTextarea1" class="form-label">Country</label>
-                                <input type="text" placeholder="Enter Country" class="form-control"
-                                    id="exampleFormControlTextarea1">
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="mb-3">
-                                <label for="exampleFormControlTextarea1" class="form-label">Zipcode</label>
-                                <input type="text" placeholder="Enter Zipcode" class="form-control"
-                                    id="exampleFormControlTextarea1">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-            <!-- <hr/> -->
             <div class="row">
-                <div style="text-align: center;">
-                    <button type="button" class="btn btn-primary">Submit</button>
+                <div class="mb-5" style="text-align: center;">
+                    <input class="btn btn-secondary" type="submit" value="Submit">
                 </div>
             </div>
         </div>

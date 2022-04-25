@@ -34,4 +34,5 @@ urlpatterns = [
     path('project_er_model/', views.project_ermodel, name="Project ER model"),
     path('project_report/', views.project_report, name="Project Report"),
     path('post_job/', views.post_job, name="Post Job"),
+    path('recruiter_jobs/<int:job_id>', views.recruiter_detail_job, name="recruiter jobs"),
 ]

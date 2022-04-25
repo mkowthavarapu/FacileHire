@@ -17,20 +17,30 @@
 	<div class="header">
 		<div class="grid-container2">
 			<a href="">
-				<img src="{% static 'hire/images/FH-logo.png' %}" alt="Facile Hire" height="50px" style="margin-left: 15px;"></a>
+				<img src="{% static 'hire/images/FH-logo.png' %}" alt="Facile Hire" height="50px"
+					style="margin-left: 15px;"></a>
 		</div>
 	</div>
 	<div class="container index-container">
+		{% if message %}
+		<script>
+		alert("{{ message }}")
+		function myFunction() {
+                window.open("/", "_top");
+            }
+		myFunction()
+		</script>
+		{% endif%}
 		<h1 align="center">FACILE HIRE</h1>
 		<h2 align="center">The parser that makes resume parsing easy</h2>
 		<div class="container login-button">
 			<div class="row">
 				<div class="col-sm">
-					<a class="btn btn-secondary btn-lg login-href" role="button" href="login/candidate">Candidate
+					<a class="btn btn-secondary btn-lg login-href" role="button" href="login/recruiter">Recruiter
 						Login</a>
 				</div>
 				<div class="col-sm">
-					<a class="btn btn-secondary btn-lg login-href" role="button" href="login/recruiter">Recruiter
+					<a class="btn btn-secondary btn-lg login-href" role="button" href="login/candidate">Candidate
 						Login</a>
 				</div>
 				<div class="col-sm">
@@ -46,7 +56,8 @@
 						Project ER Model</a>
 				</div>
 				<div class="col-sm">
-					<a class="btn btn-secondary btn-lg login-href" role="button" href="/project_report/">Project Report</a>
+					<a class="btn btn-secondary btn-lg login-href" role="button" href="/project_report/">Project
+						Report</a>
 				</div>
 			</div>
 		</div>
@@ -58,4 +69,5 @@
 	}
 	clear_storage()
 </script> -->
+
 </html>

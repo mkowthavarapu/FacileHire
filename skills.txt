@@ -1,0 +1,49 @@
+Artificial intelligence
+Cybersecurity
+Cloud computing
+Software engineering
+Software development
+Project management
+UI/UX design
+Data analytics
+Data science
+Programming
+Computer graphics
+Digital marketing
+Mobile development
+Virtualization
+Network maintenance
+Business analysis
+People management
+Blockchain
+Quantum computing
+Robotics
+Video production
+Game development
+Industrial design
+Audio production
+Oracle
+Java
+Javascript
+Linux
+HTML
+Python
+SQL
+C/C++
+CSS
+Scrum
+Git
+Unix
+C#
+Perl
+Swift
+Azure
+Ruby
+Go
+PHP
+R
+AWS
+.NET
+Scala
+Salesforce/CRM
+Docker
