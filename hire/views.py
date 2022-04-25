@@ -122,13 +122,13 @@ def employee_dashboard(request):
         context["message"] = "Please login"
         return render(request, 'hire/index.html', context)
 
-    query = "select c.candidate_id, ifnull(c.first_name, ''), ifnull(c.middle_name, ''), ifnull(c.last_name, ''), c.email, c.mobile, c.skills from employee_candidate as ec, candidate as c where c.candidate_id = ec.candidate_id and employee_id = %s"
+    query = "select c.candidate_id, ifnull(c.first_name, ''), ifnull(c.middle_name, ''), ifnull(c.last_name, ''), c.email, c.mobile, c.skills, d.title from employee_candidate as ec, candidate as c, designation d, candidate_designation cd where c.candidate_id = ec.candidate_id and cd.candidate_id = c.candidate_id and cd.designation_id = d.designation_id and employee_id = %s"
     results = execute_query_fetchall(query % localStorage.getItem("employee_id"))
     context = {"candidates": []}
     for result in results:
-        _id, first_name, middle_name, last_name, email, mobile, skills = result
+        _id, first_name, middle_name, last_name, email, mobile, skills, designation = result
         candidate_name = " ".join([first_name, middle_name, last_name])
-        context["candidates"].append({"name": candidate_name, "email": email, "mobile": mobile, "skills": skills, "id": _id})
+        context["candidates"].append({"name": candidate_name, "email": email, "mobile": mobile, "skills": skills, "id": _id, "designation": designation})
 
     return render(request, "hire/employee_dashboard.html", context)
 
@@ -143,15 +143,13 @@ def employee_candidate(request, candidate_id):
         context["message"] = "Please login"
         return render(request, 'hire/index.html', context)
 
-    query = "select ifnull(first_name, ''), ifnull(middle_name, ''), ifnull(last_name, ''), skills, mobile, email from candidate where candidate_id = '%s'"
+    query = "select ifnull(first_name, ''), ifnull(middle_name, ''), ifnull(last_name, ''), skills, mobile, email, d.title from candidate c, designation d, candidate_designation cd where cd.candidate_id = c.candidate_id and cd.designation_id = d.designation_id and c.candidate_id = %s"
     result = execute_query_fetchone(query % candidate_id)
     context["name"] = " ".join([result[0], result[1], result[2]])
     context["skills"] = result[3]
     context["mobile"] = result[4]
     context["email"] = result[5]
-    query = "select title from designation d, candidate_designation cd where cd.candidate_id = '%s' and cd.designation_id = d.designation_id"
-    result = execute_query_fetchone(query % candidate_id)
-    context["designation"] = result[0]
+    context["designation"] = result[6]
     context["candidate_id"] = candidate_id
     return  render(request, "hire/employee_candidate.html", context=context)
 
@@ -209,13 +207,13 @@ def recruiter_candidates(request):
     if not is_login:
         context["message"] = "Please login"
         return render(request, 'hire/index.html', context)
-    query = "select c.candidate_id, c.first_name, c.middle_name, c.last_name, c.email, c.mobile, c.skills from recruiter_candidate as rc, candidate as c where c.candidate_id = rc.candidate_id and recruiter_id = %s"
+    query = "select c.candidate_id, c.first_name, c.middle_name, c.last_name, c.email, c.mobile, c.skills, d.title from recruiter_candidate as rc, candidate as c, designation d, candidate_designation cd where c.candidate_id = rc.candidate_id and cd.candidate_id = c.candidate_id and cd.designation_id = d.designation_id and recruiter_id = %s"
     results = execute_query_fetchall(query % localStorage.getItem("recruiter_id"))
     context = {"candidates": []}
     for result in results:
-        _id, first_name, middle_name, last_name, email, mobile, skills = result
+        _id, first_name, middle_name, last_name, email, mobile, skills, designation = result
         candidate_name = " ".join([first_name, middle_name, last_name])
-        context["candidates"].append({"name": candidate_name, "email": email, "mobile": mobile, "skills": skills, "id": _id})
+        context["candidates"].append({"name": candidate_name, "email": email, "mobile": mobile, "skills": skills, "id": _id, "designation": designation})
     return render(request, "hire/recruiter-candidates.html", context)
 
 def recruiter_resumes(request):
