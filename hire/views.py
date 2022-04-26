@@ -90,9 +90,6 @@ def candidate_dashboard(request):
     context["candidate_id"] = candidate_id
     return render(request, "hire/candidate_dashboard.html", context)
 
-def candidate_profile(request):
-    return render(request, "hire/candidate_profile.html", {})
-
 @csrf_protect
 def employee_login(request):
     if request.method == 'POST':
@@ -133,10 +130,6 @@ def employee_dashboard(request):
     return render(request, "hire/employee_dashboard.html", context)
 
 def employee_candidate(request, candidate_id):
-    if request.method == "POST":
-        import pdb; pdb.set_trace()
-        return
-
     context = {}
     is_login = check_login(request, "employee_id")
     if not is_login:
@@ -246,7 +239,6 @@ def recruiter_profile(request):
 
     query = "select ifnull(first_name, ''), ifnull(middle_name, ''), ifnull(last_name,''), designation, email, c.name, cl.name, state, country, mobile from recruiter as r, recruiter_clients as rc, recruiter_company as rco, company as c, clients cl, location l, recruiter_location rl where r.recruiter_id = rc.recruiter_id and r.recruiter_id = rco.recruiter_id and rc.clients_id = cl.clients_id and rco.company_id = c.company_id and rl.location_id = l.location_id and r.recruiter_id = %s;" % localStorage.getItem("recruiter_id")
     result = execute_query_fetchone(query)
-    print(result)
     context["name"] = " ".join([result[0], result[1], result[2]])
     context["designation"] = result[3]
     context["email"] = result[4]
@@ -258,11 +250,74 @@ def recruiter_profile(request):
     context["age"] = random.randint(25, 40)
 
     return render(request, "hire/recruiter-profile.html", context=context)
-    
+
+def populate_call_status(request, candidate_id):
+    call_status = request.POST.get("call_status")
+    contacted, not_answered, not_intrested = False, False, False
+    if call_status == "contacted":
+        contacted = True
+    elif call_status == "not_answered":
+        not_answered = True
+    elif call_status == "not_intrested":
+        not_intrested = True
+    call_status_remarks = request.POST.get("call_status_remarks", "")
+    query = "insert into interview_call_status (contacted, not_answered, not_interested, remarks, candidate_id, recruiter_id) values ('%s', '%s', '%s', '%s', '%s', '%s') on duplicate key update  contacted='%s', not_answered='%s', not_interested='%s', remarks='%s'"
+    execute_query(query % (contacted, not_answered, not_intrested, call_status_remarks, candidate_id, localStorage.getItem("recruiter_id"), contacted, not_answered, not_intrested, call_status_remarks))
+
+def populate_interview_schedule(request, candidate_id):
+    interview_schedule = request.POST.get("interview_schedule")
+    interview_date = request.POST.get("interview_date", "")
+    interview_schedule_remarks = request.POST.get("interview_schedule_remarks", "")
+    query = "insert into interview_schedule (interview_scheduled_status, interview_date, remarks,candidate_id, recruiter_id) values ('%s', '%s', '%s', '%s', '%s') on duplicate key update interview_scheduled_status='%s', interview_date='%s', remarks='%s'"
+    execute_query(query%(interview_schedule, interview_date, interview_schedule_remarks, candidate_id, localStorage.getItem("recruiter_id"), interview_schedule, interview_date, interview_schedule_remarks))
+
+def populate_interview_round(request, candidate_id):
+    written_test =  request.POST.get("written_test", "")
+    technical_evaluation = request.POST.get("technical_evaluation", "")
+    mangerial_round = request.POST.get("mangerial_round", "")
+    hr_round = request.POST.get("hr_round", "")
+    final_round = request.POST.get("final_round", "")
+    interview_round_remarks = request.POST.get("interview_round_remarks", "")
+    query = "insert into interview_round (written_test, technical_evaluation, mangerial_round, hr_round, final_round, remarks, candidate_id, recruiter_id) values ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s') on duplicate key update written_test='%s', technical_evaluation='%s', mangerial_round='%s', hr_round='%s', final_round='%s', remarks='%s'"
+    execute_query(query % (written_test, technical_evaluation, mangerial_round, hr_round, final_round, interview_round_remarks, candidate_id, localStorage.getItem("recruiter_id"), written_test, technical_evaluation, mangerial_round, hr_round, final_round, interview_round_remarks))    
+
+def populate_background_verification(request, candidate_id):
+    verification = request.POST.get("verification", "")
+    query = "insert into background_verfication (status, candidate_id, recruiter_id) values ('%s', '%s', '%s') on duplicate key update status='%s'"
+    execute_query(query % (verification, candidate_id, localStorage.getItem("recruiter_id"), verification))
+
+def populate_interview_status(request, candidate_id):
+    interview_status = request.POST.get("interview_status", "")
+    interview_status_remarks = request.POST.get("interview_status_remarks", "")
+    query = "insert into interview_status (status, remarks, candidate_id, recruiter_id) values ('%s', '%s', '%s', '%s') on duplicate key update status='%s', remarks='%s'"
+    execute_query(query % (interview_status, interview_status_remarks, candidate_id, localStorage.getItem("recruiter_id"), interview_status, interview_status_remarks))    
+
+def populate_job_details(request, candidate_id):    
+    job_id = request.POST.get("job_id", "")
+    job_status = request.POST.get("job_status", "")
+    query = "insert into candidate_job (candidate_id, job_id) values ('%s', '%s') on duplicate key update candidate_id='%s', job_id='%s'"
+    execute_query(query % (candidate_id, job_id, candidate_id, job_id))\
+
+def populate_documents(request, candidate_id):
+    passport = request.POST.get("passport", "")
+    experience_letter = request.POST.get("experience_letter", "")
+    educational_documents = request.POST.get("educational_documents", "")
+    payslips = request.POST.get("payslips", "")
+    dl = request.POST.get("dl", "")
+    ssn = request.POST.get("ssn", "")
+    query = "insert into documents (passport, experience_letters, education_documents, payslips, DL, ssn, candidate_id, recruiter_id) values ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s') on duplicate key update passport='%s', experience_letters='%s', education_documents='%s', payslips='%s', DL='%s', ssn='%s'"
+    execute_query(query % (passport, experience_letter, educational_documents, payslips, dl, ssn, candidate_id, localStorage.getItem("recruiter_id"), passport, experience_letter, educational_documents, payslips, dl, ssn))
+
 def recruiter_candidate_profile(request, candidate_id):
+    context = {}
     if request.method == "POST":
-        import pdb; pdb.set_trace()
-        return
+        populate_documents(request, candidate_id)
+        populate_call_status(request, candidate_id)
+        populate_interview_schedule(request, candidate_id)
+        populate_interview_round(request, candidate_id)
+        populate_background_verification(request, candidate_id)
+        populate_interview_status(request, candidate_id)
+        populate_job_details(request, candidate_id)
 
     context = {}
     is_login = check_login(request, "recruiter_id")
@@ -279,9 +334,35 @@ def recruiter_candidate_profile(request, candidate_id):
     result = execute_query_fetchone(query % candidate_id)
     context["designation"] = result[0]
     context["candidate_id"] = candidate_id
-    query = "select "
+    documents = get_documents(candidate_id, localStorage.getItem("recruiter_id"))
+    call_status_results =  get_call_status(candidate_id, localStorage.getItem("recruiter_id"))
+    context["documents"] = documents
+    context["call_status"] = call_status_results
     return  render(request, "hire/recruiter_candidate_profile.html", context=context)
-    
+
+def get_call_status(candidate_id, recruiter_id):
+    query = "select contacted, not_answered, not_interested, remarks from interview_call_status where candidate_id = '%s' and recruiter_id = '%s'" % (candidate_id, recruiter_id)
+    result = execute_query_fetchone(query)
+    call_status_dict = {
+        "contacted": result[0],
+        "not_answered": result[1],
+        "not_interested": result[2],
+        "remarks": result[3]
+    }
+    return call_status_dict
+
+def get_documents(candidate_id, recruiter_id):
+    query = "select passport, experience_letters, education_documents, payslips, DL, ssn from documents where candidate_id = '%s' and recruiter_id = '%s'" % (candidate_id, recruiter_id)
+    result = execute_query_fetchone(query)
+    documents_dict = {
+        "passport": result[0],
+        "experience_letters": result[1],
+        "education_documents": result[2],
+        "payslips": result[3],
+        "dl": result[4],
+        "ssn": result[5]
+    }
+    return documents_dict
 
 def index(request):
     context = {}

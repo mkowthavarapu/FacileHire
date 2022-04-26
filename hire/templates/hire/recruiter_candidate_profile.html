@@ -87,22 +87,56 @@
                 <div class="col-md-6">
                     <div class="sub_heading">Document(s)</div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" name="passport"id="passport" value=True>
+                        {% if documents.passport == "True" %}
+                            <input class="form-check-input" type="checkbox" name="passport"id="passport" value=True checked>
+                        {% else %}
+                            <input class="form-check-input" type="checkbox" name="passport"id="passport" value=True>
+                        {% endif %}
                         <label class="form-check-label" for="passport">Passport</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="experience_letters"
+                        {% if documents.experience_letters == "True" %}
+                            <input class="form-check-input" type="checkbox" id="experience_letters"
+                            value=True name="experience_letter" checked>
+                        {% else %}
+                            <input class="form-check-input" type="checkbox" id="experience_letters"
                             value=True name="experience_letter">
+                        {% endif %}
                         <label class="form-check-label" for="experience_letters">Experience Letter(s)</label>
                     </div>
                     <div class="form-check form-check-inline">
+                        {% if documents.education_documents == "True" %}
+                        <input class="form-check-input" type="checkbox" id="educational_documents"
+                            value=True name="educational_documents" checked>
+                        {% else %}
                         <input class="form-check-input" type="checkbox" id="educational_documents"
                             value=True name="educational_documents">
+                        {% endif %}
                         <label class="form-check-label" for="educational_documents">Educational Document(s)</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="payslips" value="" name="payslips">
+                        {% if documents.payslips == "True" %}
+                        <input class="form-check-input" type="checkbox" id="payslips" value="True" name="payslips" checked>
+                        {% else %}
+                        <input class="form-check-input" type="checkbox" id="payslips" value="True" name="payslips">
+                        {% endif %}
                         <label class="form-check-label" for="payslips">Payslip(s)</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        {% if documents.dl == "True" %}
+                            <input class="form-check-input" type="checkbox" id="dl" value="True" name="dl" checked>
+                        {% else %}
+                        <input class="form-check-input" type="checkbox" id="dl" value="True" name="dl">
+                        {% endif %}
+                        <label class="form-check-label" for="dl">DL</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        {% if documents.ssn == "True" %}
+                        <input class="form-check-input" type="checkbox" id="ssn" value="True" name="ssn" checked>
+                        {% else %}
+                        <input class="form-check-input" type="checkbox" id="ssn" value="True" name="ssn">
+                        {% endif %}
+                        <label class="form-check-label" for="payslips">SSN</label>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -127,6 +161,14 @@
                             name="call_status">
                         <label class="form-check-label" for="call-status-interestede">Interested</label>
                     </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="mb-3">
+                                <label for="call_status_remarks" class="form-label">Remarks</label>
+                                <textarea class="form-control" id="call_status_remarks" rows="3" name="call_status_remarks"></textarea>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <hr />
@@ -134,17 +176,17 @@
                 <div class="col-md-6">
                     <div class="sub_heading">Interview Schedule</div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" id="schedule_interview" value="schedule_interview"
-                            name="schedule_interview">
+                        <input class="form-check-input" type="radio" id="schedule-interview" value="schedule_interview"
+                            name="interview_schedule">
                         <label class="form-check-label" for="schedule-interview">Schedule Interview</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" id="interview-scheduled" value="interview_scheduled" name="interview_scheduled">
+                        <input class="form-check-input" type="radio" id="interview-scheduled" value="interview_scheduled" name="interview_schedule">
                         <label class="form-check-label" for="interview-scheduled">Interview Scheduled</label>
                     </div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" id="not-attended-interview"
-                            value="not_attended_interview" name="not_attended_interview">
+                            value="not_attended_interview" name="interview_schedule">
                         <label class="form-check-label" for="not-attended-interview">Not attended Interview</label>
                     </div>
                     <div class="form-date form-date-inline">
@@ -163,24 +205,24 @@
                 <div class="col-md-6">
                     <div class="sub_heading">Interview Round</div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="written_test" value="" name="written_test">
+                        <input class="form-check-input" type="checkbox" id="written_test" value="True" name="written_test">
                         <label class="form-check-label" for="written_test">Written Test</label>
                     </div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="checkbox" id="technical_evaluation"
-                            value="" name="technical_evaluation">
+                            value="True" name="technical_evaluation">
                         <label class="form-check-label" for="technical_evaluation">Technical Evaluation</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="mangerial_round" value="" name="mangerial_round">
+                        <input class="form-check-input" type="checkbox" id="mangerial_round" value="True" name="mangerial_round">
                         <label class="form-check-label" for="mangerial_round">Mangerial Round</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="hr_round" value="" name="hr_round">
+                        <input class="form-check-input" type="checkbox" id="hr_round" value="True" name="hr_round">
                         <label class="form-check-label" for="hr_round">HR Round</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="final_round" value="" name="final_round">
+                        <input class="form-check-input" type="checkbox" id="final_round" value="True" name="final_round">
                         <label class="form-check-label" for="final_round">Final Round</label>
                     </div>
                     <div class="row">
@@ -203,7 +245,7 @@
                         <label class="form-check-label" for="bg_initiated">Initiated</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" id="bg_in_progress" value="in_progess"
+                        <input class="form-check-input" type="radio" id="bg_in_progress" value="in_progress"
                             name="verification">
                         <label class="form-check-label" for="bg_in_progress">In Progress</label>
                     </div>
@@ -224,18 +266,18 @@
                 <div class="col-md-6">
                     <div class="sub_heading">Interview Status</div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" id="inlineCheckbox3" value="option1">
+                        <input class="form-check-input" type="radio" id="inlineCheckbox3" value="selected" name="interview_status">
                         <label class="form-check-label" for="inlineCheckbox3">Selected</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" id="inlineCheckbox4" value="option2">
+                        <input class="form-check-input" type="radio" id="inlineCheckbox4" value="rejected" interview_status="interview_status">
                         <label class="form-check-label" for="inlineCheckbox4">Rejected</label>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="mb-3">
                                 <label for="exampleFormControlTextarea1" class="form-label">Remarks</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="interview_status_remarks"></textarea>
                             </div>
                         </div>
                     </div>
